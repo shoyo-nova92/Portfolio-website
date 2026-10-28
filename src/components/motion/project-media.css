@@ -1,0 +1,82 @@
+.project-media-figure { width: 100%; min-width: 0; }
+.project-media-figure .project-media { isolation: isolate; }
+.project-media-figure video { width: 100%; height: 100%; object-fit: contain; background: #11140f; }
+.concept-scene { height: 100%; width: 100%; position: relative; color: var(--accent, #b9c8ac); background: #141713; overflow: hidden; }
+.neurofly-scene { background: #151914; }
+.concept-illustration { width: 100%; height: 100%; display: block; position: absolute; inset: 0; object-fit: contain; }
+.concept-topline, .concept-bottomline { position: absolute; left: 24px; right: 24px; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-family: var(--mono); text-transform: uppercase; letter-spacing: .1em; font-size: 8px; line-height: 1.5; color: #a1ad97; }
+.concept-topline { top: 22px; }
+.concept-bottomline { bottom: 22px; }
+.concept-status { display: flex; align-items: center; gap: 8px; }
+.concept-status i { width: 4px; height: 4px; border-radius: 50%; background: #b9c8ac; flex-shrink: 0; }
+.nova-stage, .neurofly-source, .neurofly-agent { position: absolute; color: #b2bca9; font-family: var(--mono); font-size: 8px; line-height: 1.5; letter-spacing: .025em; text-align: center; }
+.nova-stage-input { top: 61%; left: 5.5%; width: 16%; }
+.nova-stage-output { top: 61%; right: 3%; width: 21%; }
+.nova-stage-center { top: 70%; left: 33%; width: 34%; }
+.neurofly-source { top: 66%; left: 16%; width: 20%; }
+.neurofly-agent { top: 72%; left: 48%; width: 24%; }
+.media-caption { display: flex; justify-content: space-between; gap: 16px; margin-top: 12px; font-family: var(--mono); font-size: 8px; line-height: 1.5; letter-spacing: .07em; text-transform: uppercase; color: var(--subtle, #898e85); }
+.media-caption span:last-child { text-align: right; }
+.media-transcript { border-bottom: 1px solid var(--border); margin-top: 18px; font-size: 13px; color: var(--muted); }
+.media-transcript summary { cursor: pointer; min-height: 44px; padding-block: 12px; color: var(--foreground); }
+.media-transcript p { white-space: pre-wrap; padding-bottom: 20px; max-width: 760px; line-height: 1.8; }
+.media-detail .project-media { aspect-ratio: 2/1; }
+.media-detail .concept-illustration { max-width: 850px; margin-inline: auto; }
+.media-detail .nova-stage-input { left: calc(50% - min(33%, 280px)); width: 14%; }
+.media-detail .nova-stage-output { right: calc(50% - min(35%, 300px)); width: 18%; }
+.media-detail .nova-stage-center { top: 76%; }
+.media-detail .neurofly-source { left: 22%; top: 69%; }
+.media-detail .neurofly-agent { top: 76%; }
+.system-flow { grid-template-columns: repeat(auto-fit, minmax(92px, 1fr)); }
+.system-flow li { display: flex; flex-direction: column; justify-content: center; gap: 13px; min-width: 0; }
+.system-flow-index { font-size: 9px; letter-spacing: .06em; color: var(--subtle); }
+@media (max-width: 767px) {
+  .media-detail .project-media { aspect-ratio: 1.35; }
+  .concept-topline, .concept-bottomline { left: 16px; right: 16px; font-size: 7px; letter-spacing: .07em; gap: 10px; }
+  .concept-topline { top: 16px; }
+  .concept-bottomline { bottom: 16px; }
+  .nova-stage, .neurofly-source, .neurofly-agent { font-size: 7px; }
+  .media-detail .nova-stage-input { left: 5.5%; width: 16%; top: 61%; }
+  .media-detail .nova-stage-output { right: 3%; width: 21%; top: 61%; }
+  .media-detail .nova-stage-center { top: 70%; }
+  .media-detail .neurofly-source { left: 16%; top: 66%; }
+  .media-detail .neurofly-agent { top: 72%; }
+  .system-flow { grid-template-columns: 1fr; }
+  .system-flow li { flex-direction: row; justify-content: flex-start; gap: 18px; padding-inline: 20px; text-align: left; }
+  .media-caption { font-size: 7px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-media-figure *, .system-flow * { animation: none !important; transition: none !important; }
+}
+
+/* Concept diagrams are quiet living systems rather than static illustrations. */
+@media (prefers-reduced-motion: no-preference) {
+  .concept-scene .concept-illustration { animation: diagram-breathe 9s ease-in-out infinite alternate; }
+  .nova-scene .concept-status i,
+  .neurofly-scene .concept-status i { animation: status-pulse 2.6s ease-in-out infinite; }
+  .nova-scene .concept-illustration circle,
+  .neurofly-scene .concept-illustration > circle { transform-box: fill-box; transform-origin: center; animation: signal-pulse 4.8s ease-in-out infinite; }
+  .neurofly-scene .concept-illustration > ellipse { transform-box: fill-box; transform-origin: center; animation: odor-field 7s ease-in-out infinite alternate; }
+  .system-flow li {
+    transition: transform 420ms cubic-bezier(.22,1,.36,1), border-color 420ms ease, background 420ms ease, color 420ms ease;
+  }
+  .system-flow li:hover { transform: translateY(-3px); border-color: var(--accent); background: #171b16; color: var(--foreground); }
+  @supports (animation-timeline: view()) {
+    .system-flow li {
+      animation: flow-stage linear both;
+      animation-timeline: view();
+      animation-range: entry 4% cover 23%;
+    }
+    .system-flow li:nth-child(2) { animation-range: entry 7% cover 26%; }
+    .system-flow li:nth-child(3) { animation-range: entry 10% cover 29%; }
+    .system-flow li:nth-child(4) { animation-range: entry 13% cover 32%; }
+    .system-flow li:nth-child(5) { animation-range: entry 16% cover 35%; }
+    .system-flow li:nth-child(6) { animation-range: entry 19% cover 38%; }
+    .system-flow li:nth-child(7) { animation-range: entry 22% cover 41%; }
+  }
+}
+@keyframes diagram-breathe { from { transform: scale(1); opacity: .93; } to { transform: scale(1.012); opacity: 1; } }
+@keyframes status-pulse { 0%,100% { opacity: .55; box-shadow: 0 0 0 0 rgba(185,200,172,0); } 50% { opacity: 1; box-shadow: 0 0 0 6px rgba(185,200,172,.06); } }
+@keyframes signal-pulse { 0%,100% { opacity: .72; } 50% { opacity: 1; } }
+@keyframes odor-field { from { opacity: .72; transform: scale(.992); } to { opacity: 1; transform: scale(1.012); } }
+@keyframes flow-stage { from { opacity: .3; transform: translateY(13px); } to { opacity: 1; transform: translateY(0); } }
