@@ -11,7 +11,7 @@ Inspected https://seanrobobrien.com/ and https://aliabdaal.com/ on 2026-10-28. T
 - Canvas `#0d0e0d`; surface `#141614`; raised surface `#1a1c19`.
 - Primary text `#efefeb`; secondary `#aaada6`; quiet text `#898e85`.
 - Single muted sage accent `#b9c8ac`; border `#2b2e29`; stronger border `#444a3e`.
-- System Arial/Helvetica sans serif; Cascadia Code/Consolas monospace labels. No external font request.
+- Self-hosted Manrope variable Latin (24KB WOFF2) through `next/font/local`, with Segoe UI/system fallback and the bundled SIL OFL license. Print uses Arial. Cascadia Code/Consolas remains for technical labels. No external font request or build-time font download.
 - Maximum page width 1248px, fluid side gutters 24–80px, section spacing 80–152px.
 - Main hero 46–82px, case-study title 56–112px, section title 31–48px. Body 14–16px; short technical labels 9–10px.
 - 3–5px corner radius; mostly square editorial composition. No glows, colored gradients or decorative shadows.
@@ -39,7 +39,7 @@ The header is sticky with an opaque dark surface. On mobile it becomes two compa
 
 Semantic landmarks and headings belong to route components. Shared styles include a visible skip-link state, high-contrast keyboard focus, 44px minimum links where navigation/interaction is dense, accessible native details, and stable media ratios. Keep muted text for secondary information, never use borders alone to communicate status.
 
-Hover movement is limited to 2–3px arrows and subtle color changes over 180ms. No content depends on animation. Reduced-motion media query disables smooth scrolling, transitions and animations. Avoid automatically animated visualizations.
+Interactions share 180/300ms timing and a restrained ease-out. Fine-pointer hover and keyboard focus-within add a 3px/1.005 project-media response; actual video controls stay unlinked and unscaled. Native details progressively animate intrinsic height where supported. One null client controller handles per-path 340ms entrance, once-only 560ms reveals and finite named diagram sequences (under three seconds). Semantic diagrams remain complete at rest. No content is hidden in server HTML. Reduced-motion initial/live changes, focus and print settle effects; no infinite background motion is used.
 
 ## Media integrity
 

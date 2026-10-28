@@ -6,3 +6,6 @@ out/
 test-results/
 *.tsbuildinfo
 .DS_Store
+.brud/
+.codex/
+AGENTS.md

@@ -3,7 +3,7 @@
 .resume-back { display: inline-flex; align-items: center; min-height: 44px; color: var(--muted); }
 .resume-back:hover { color: var(--foreground); }
 .resume-actions { display: flex; align-items: center; gap: 12px; }
-.resume-actions a, .resume-actions button { min-height: 44px; padding: 11px 15px; border: 1px solid var(--border); border-radius: 3px; background: transparent; color: var(--foreground); font-size: 12px; }
+.resume-actions a, .resume-actions button { min-height: 44px; padding: 11px 15px; border: 1px solid var(--border); border-radius: 3px; background: transparent; color: var(--foreground); font-size: 12px; transition: background 180ms ease, border-color 180ms ease, color 180ms ease; }
 .resume-actions a { background: var(--foreground); color: var(--background); border-color: var(--foreground); }
 .resume-actions a:hover { background: var(--accent); border-color: var(--accent); }
 .resume-actions button:hover { border-color: var(--subtle); }
@@ -17,10 +17,11 @@
 .resume-contacts a:hover, .resume-source-link:hover, .resume-project h3 a:hover { color: var(--accent); }
 .resume-summary { color: var(--muted); font-size: 15px; line-height: 1.8; max-width: 750px; }
 .resume-print-label { display: none; }
+.resume-print-project-title { display: none; }
 .resume-focus { padding: 18px 0 30px; display: flex; align-items: center; gap: 20px; border-bottom: 1px solid var(--border); }
 .resume-focus > span { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
 .resume-focus > div { display: flex; flex-wrap: wrap; gap: 6px; }
-.resume-focus button { border: 1px solid var(--border); border-radius: 2px; background: transparent; min-height: 44px; padding: 9px 12px; font-size: 12px; color: var(--muted); }
+.resume-focus button { border: 1px solid var(--border); border-radius: 2px; background: transparent; min-height: 44px; padding: 9px 12px; font-size: 12px; color: var(--muted); transition: background 180ms ease, border-color 180ms ease, color 180ms ease; }
 .resume-focus button[aria-pressed="true"] { background: var(--surface-raised); color: var(--foreground); border-color: var(--accent); }
 .resume-focus button:hover { color: var(--foreground); border-color: var(--subtle); }
 .resume-section { display: grid; grid-template-columns: 190px minmax(0,1fr); column-gap: 40px; padding: 36px 0; border-bottom: 1px solid var(--border); }
@@ -40,6 +41,10 @@
 .resume-capability-grid p { font-size: 12px; }
 .resume-print-note { color: var(--subtle); font-size: 12px; margin-top: 25px; }
 .resume-document [data-screen-hidden="true"] { display: none; }
+@media screen and (prefers-reduced-motion: no-preference) {
+  .resume-body { animation: resume-focus-change 180ms ease-out both; }
+}
+@keyframes resume-focus-change { from { opacity: .6; } to { opacity: 1; } }
 @media (max-width: 767px) {
   .resume-shell { padding-top: 20px; }
   .resume-toolbar { align-items: flex-start; flex-direction: column; gap: 12px; margin-bottom: 22px; }
@@ -52,7 +57,7 @@
   .resume-capability-grid { gap: 20px; }
   .resume-case-study { margin-left: 0; display: flex; }
 }
-@page { size: A4; margin: 15mm 16mm; }
+@page { size: A4; margin: 13mm 15mm; }
 @media print {
   html, body { color-scheme: light; background: #fff !important; color: #111 !important; }
   body { font-family: Arial, Helvetica, sans-serif; font-size: 10pt; line-height: 1.4; }
@@ -68,44 +73,35 @@
   .resume-contacts a { min-height: 0; color: #111; }
   .resume-screen-label { display: none; }
   .resume-print-label { display: inline; }
+  .resume-screen-project-title { display: none; }
+  .resume-print-project-title { display: inline; }
   .resume-summary { color: #222; font-size: 9.5pt; line-height: 1.5; max-width: none; }
-  .resume-section { display: block; padding: 11pt 0; border-color: #b8b8b8; break-inside: avoid; }
-  .resume-section > h2 { color: #222; font-family: Arial, Helvetica, sans-serif; font-size: 10.5pt; line-height: 1.3; font-weight: 700; text-transform: none; letter-spacing: 0; margin: 0 0 9pt; }
+  .resume-section { display: block; padding: 7pt 0; border-color: #b8b8b8; break-inside: avoid; }
+  .resume-section > h2 { color: #222; font-family: Arial, Helvetica, sans-serif; font-size: 10.5pt; line-height: 1.3; font-weight: 700; text-transform: none; letter-spacing: 0; margin: 0 0 6pt; }
   .resume-section h3 { color: #111; font-size: 10.5pt; line-height: 1.3; margin-bottom: 3pt; }
-  .resume-section p, .resume-section li { color: #222; font-size: 9pt; line-height: 1.45; }
+  .resume-section p, .resume-section li { color: #222; font-size: 9.5pt; line-height: 1.4; }
   .resume-entry-heading { gap: 10pt; }
   .resume-entry-heading > span { color: #333; font-family: Arial, Helvetica, sans-serif; font-size: 8pt; }
   .resume-section .resume-entry-meta { color: #444; font-size: 8.2pt; margin-bottom: 5pt; }
   .resume-project { break-inside: avoid; }
-  .resume-project + .resume-project { padding-top: 10pt; margin-top: 10pt; border: 0; }
-  .resume-project-points { margin: 5pt 0; padding-left: 12pt; }
-  .resume-project-points li { margin-bottom: 3pt; padding-left: 1pt; }
+  .resume-project + .resume-project { padding-top: 6pt; margin-top: 6pt; border: 0; }
+  .resume-project-points { margin: 4pt 0; padding-left: 12pt; }
+  .resume-project-points li { margin-bottom: 2pt; padding-left: 1pt; }
   .resume-source-link { display: inline; min-height: 0; color: #222; font-size: 8.2pt; line-height: 1.4; }
-  .resume-capability-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8pt 16pt; }
+  .resume-capability-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 6pt 16pt; }
   .resume-capability-grid h3 { font-size: 9pt; margin-bottom: 2pt; }
   .resume-capability-grid p { font-size: 8.5pt; }
   a { color: inherit; text-decoration: none; }
   h1, h2, h3 { break-after: avoid; }
 }
 
-/* Resume V2: clearer hierarchy and denser recruiter-facing evidence. */
-.resume-project-lead { color: var(--foreground) !important; font-size: 13.5px !important; line-height: 1.7 !important; }
+/* Contributions are the primary reading layer; context stays in the metadata. */
 .resume-activity + .resume-activity { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); }
-@media (prefers-reduced-motion: no-preference) {
-  .resume-heading,
-  .resume-focus,
-  .resume-section {
-    animation: resume-enter 560ms cubic-bezier(.22,1,.36,1) both;
-  }
-  .resume-focus { animation-delay: 70ms; }
-  .resume-section:nth-of-type(1) { animation-delay: 110ms; }
-  .resume-section:nth-of-type(2) { animation-delay: 150ms; }
-  .resume-section:nth-of-type(3) { animation-delay: 190ms; }
-}
-@keyframes resume-enter { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-
 @media print {
-  .resume-project-lead { color: #111 !important; font-size: 9pt !important; line-height: 1.4 !important; }
-  .resume-activity-section { padding-top: 9pt; padding-bottom: 9pt; }
+  .resume-shell, .resume-shell *, .resume-shell *::before, .resume-shell *::after { animation: none !important; transition: none !important; transform: none !important; opacity: 1 !important; }
+  .resume-activity-section { padding-top: 7pt; padding-bottom: 7pt; }
   .resume-activity .resume-project-points { margin-bottom: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .resume-shell *, .resume-shell *::before, .resume-shell *::after { animation: none !important; transition: none !important; }
 }

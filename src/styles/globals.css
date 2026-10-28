@@ -4,7 +4,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
-  --font-sans: Arial, Helvetica, sans-serif;
+  --font-sans: var(--font-display), "Segoe UI", system-ui, sans-serif;
   --font-mono: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
 }
 
@@ -22,13 +22,16 @@
   --radius: 5px;
   --page-width: 1248px;
   --gutter: clamp(24px, 5vw, 80px);
-  --section-space: clamp(80px, 10vw, 152px);
+  --section-space: clamp(76px, 8vw, 120px);
+  --ease-out: cubic-bezier(.22,1,.36,1);
+  --duration-fast: 180ms;
+  --duration-interaction: 300ms;
   --mono: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
 }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 100px; }
-body { margin: 0; background: var(--background); color: var(--foreground); font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-display), "Segoe UI", system-ui, sans-serif; font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 ::selection { background: var(--accent); color: var(--background); }
 button, input, textarea, select { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
@@ -81,7 +84,7 @@ a:hover .arrow-icon.diagonal { transform: translate(2px, -2px); }
 .hero { padding-block: clamp(72px, 8.5vw, 126px) 72px; }
 .hero-topline { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
 .hero-topline .eyebrow { color: var(--accent); }
-.hero-title { max-width: 1110px; font-size: clamp(46px, 5.6vw, 82px); font-weight: 400; letter-spacing: -.057em; line-height: 1.06; }
+.hero-title { max-width: 1110px; font-size: clamp(46px, 5.6vw, 82px); font-weight: 400; letter-spacing: -.052em; line-height: 1.06; }
 .hero-title .muted, .hero-title em { color: #81867d; font-style: normal; }
 .hero-description { max-width: 490px; color: var(--muted); font-size: 15px; line-height: 1.8; }
 .hero-bottom { display: flex; justify-content: space-between; align-items: flex-end; gap: 36px; margin-top: 35px; }
@@ -242,15 +245,15 @@ a:hover .arrow-icon.diagonal { transform: translate(2px, -2px); }
   :root { --gutter: 24px; }
   html { scroll-padding-top: 130px; }
   .header-inner { min-height: 98px; flex-wrap: wrap; justify-content: space-between; padding-block: 10px 4px; gap: 0 16px; }
-  .brand { font-size: 11px; min-height: 38px; }
+  .brand { font-size: 11px; min-height: 44px; }
   .brand-mark { width: 24px; height: 24px; }
-  .header-contact { min-height: 38px; font-size: 11px; gap: 8px; }
+  .header-contact { min-height: 44px; font-size: 11px; gap: 8px; }
   .nav-links { width: 100%; order: 3; justify-content: space-between; gap: 12px; }
-  .nav-links a { min-height: 42px; font-size: 11px; }
+  .nav-links a { min-height: 44px; font-size: 11px; }
   .hero { padding-block: 66px 52px; }
   .hero-topline { margin-bottom: 26px; }
   .hero-topline .hero-index { display: none; }
-  .hero-title { font-size: clamp(44px, 8.5vw, 62px); line-height: 1.08; letter-spacing: -.055em; }
+  .hero-title { font-size: clamp(44px, 8.5vw, 62px); line-height: 1.08; letter-spacing: -.045em; }
   .hero-bottom { flex-direction: column; gap: 26px; margin-top: 28px; }
   .hero-description { font-size: 14px; line-height: 1.8; max-width: 520px; }
   .hero-actions { width: 100%; }
@@ -316,134 +319,91 @@ a:hover .arrow-icon.diagonal { transform: translate(2px, -2px); }
   .creative-grid { grid-template-columns: 1fr; }
   .contact-email { font-size: 14px; }
 }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
-  a:hover .arrow-icon { transform: none; }
-}
 
-/* Motion system: restrained, directional, and progressively enhanced. */
+/* Motion enhances visible server-rendered content. The controller owns route entry. */
 .route-frame { min-height: 1px; }
+[data-reveal] { --reveal-delay: 0ms; }
+[data-reveal-delay="1"] { --reveal-delay: 60ms; }
+[data-reveal-delay="2"] { --reveal-delay: 120ms; }
 @media (prefers-reduced-motion: no-preference) {
-  .route-frame { animation: route-enter 520ms cubic-bezier(.22,1,.36,1) both; }
-  .hero-topline { animation: hero-enter 560ms 40ms cubic-bezier(.22,1,.36,1) both; }
-  .hero-title { animation: hero-enter 720ms 100ms cubic-bezier(.22,1,.36,1) both; }
-  .hero-bottom { animation: hero-enter 680ms 180ms cubic-bezier(.22,1,.36,1) both; }
-  .hero-socials { animation: hero-enter 620ms 260ms cubic-bezier(.22,1,.36,1) both; }
-
-  @supports (animation-timeline: view()) {
-    .section-heading,
-    .project-card,
-    .creative-card,
-    .note-row,
-    .activity-item,
-    .about-copy,
-    .about-grid figure,
-    .project-section,
-    .case-media,
-    .contact-section > .container {
-      animation: reveal-up linear both;
-      animation-timeline: view();
-      animation-range: entry 2% cover 24%;
-    }
-    .project-card:nth-child(2), .creative-card:nth-child(even), .about-grid figure {
-      animation-range: entry 6% cover 28%;
-    }
-  }
+  [data-reveal][data-motion-state="entered"] { animation: reveal-enter 560ms var(--ease-out) var(--reveal-delay) both; }
 }
-
-@keyframes route-enter {
-  from { opacity: 0; transform: translateY(10px); }
+@keyframes reveal-enter {
+  from { opacity: .45; transform: translateY(14px); }
   to { opacity: 1; transform: translateY(0); }
 }
-@keyframes hero-enter {
-  from { opacity: 0; transform: translateY(18px); filter: blur(2px); }
-  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+/* Quiet transitions share the same timing and remain meaningful at rest. */
+.site-header { background: rgba(13,14,13,.96); }
+.nav-links a { position: relative; transition: color var(--duration-interaction) var(--ease-out); }
+.nav-links a::after { content: ""; position: absolute; inset: auto 0 8px; height: 1px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform var(--duration-interaction) var(--ease-out); }
+.nav-links a:is(:hover,:focus-visible,[aria-current="page"])::after { transform: scaleX(1); }
+.nav-links a:is(:focus-visible,[aria-current="page"]) { color: var(--foreground); }
+.button { transition: transform var(--duration-fast) var(--ease-out), background var(--duration-interaction) var(--ease-out), border-color var(--duration-interaction) var(--ease-out), color var(--duration-interaction) var(--ease-out); }
+.button:active { transform: scale(.985); }
+.button:focus-visible { border-color: var(--accent); }
+.text-link, .back-link, .social-links a, .header-contact, .contact-email { transition: color var(--duration-fast) ease, border-color var(--duration-interaction) ease; }
+a:focus-visible .arrow-icon { transform: translateX(3px); }
+a:focus-visible .arrow-icon.diagonal { transform: translate(2px,-2px); }
+.project-media-link { display: block; border-radius: var(--radius); }
+.project-card .project-media { transition: border-color 400ms var(--ease-out), background 400ms var(--ease-out), transform 500ms var(--ease-out), box-shadow 500ms var(--ease-out); }
+.project-card-title, .project-card-link, .creative-card h3 { transition: color var(--duration-interaction) var(--ease-out); }
+.project-card-title .arrow-icon, .project-card-link .arrow-icon { transition: transform var(--duration-interaction) var(--ease-out), color var(--duration-interaction) ease; }
+.project-card:focus-within .project-media { border-color: var(--accent); background: var(--surface-raised); }
+.project-card:not(.has-video):focus-within .project-media { transform: translateY(-3px) scale(1.005); }
+.project-card:focus-within .project-card-title, .project-card:focus-within .project-card-link { color: var(--accent); }
+.project-card:focus-within .project-card-link .arrow-icon { transform: translateX(3px); }
+.creative-card .creative-image-frame { border: 1px solid var(--border); border-radius: var(--radius); background: #101210; transition: border-color 400ms var(--ease-out), background 400ms var(--ease-out); }
+.creative-card .creative-image { border: 0; }
+.creative-card h3 { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.creative-card h3 .arrow-icon { width: 16px; height: 16px; color: var(--subtle); }
+.creative-card:focus-within .creative-image-frame { border-color: var(--accent); }
+.creative-card:focus-within h3 { color: var(--accent); }
+.note-row { transition: background var(--duration-interaction) var(--ease-out), color var(--duration-interaction) var(--ease-out); }
+.note-row:focus-visible { background: var(--surface); }
+.note-row .note-content h3 { transition: color var(--duration-interaction) var(--ease-out); }
+.note-row:is(:hover,:focus-visible) .note-content h3 { color: var(--accent); }
+.activity-section { padding-block: clamp(60px,6vw,90px); }
+.activity-section .section-heading { margin-bottom: 26px; }
+.activity-item p { max-width: 64ch; }
+.hero-description, .about-copy > p:not(.eyebrow) { text-wrap: pretty; }
+.about-copy h2 { max-width: 17ch; letter-spacing: -.04em; }
+.project-card-description { max-width: 57ch; }
+.project-section p, .prose { text-wrap: pretty; }
+@media (hover: hover) and (pointer: fine) {
+  .button:hover { transform: translateY(-2px); }
+  .button:active { transform: translateY(0) scale(.985); }
+  .project-card:hover .project-media { border-color: #69765e; background: var(--surface-raised); box-shadow: 0 15px 38px rgba(0,0,0,.14); }
+  .project-card:not(.has-video):hover .project-media { transform: translateY(-3px) scale(1.005); }
+  .project-card:hover .project-card-title, .project-card:hover .project-card-link { color: var(--accent); }
+  .project-card:hover .project-card-link .arrow-icon { transform: translateX(3px); }
+  .creative-card:hover .creative-image-frame { border-color: #69765e; background: var(--surface-raised); }
 }
-@keyframes reveal-up {
-  from { opacity: .18; transform: translateY(28px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* More tactile navigation without turning the interface into an effect demo. */
-.site-header {
-  background: rgba(13,14,13,.82);
-  -webkit-backdrop-filter: blur(18px) saturate(130%);
-  backdrop-filter: blur(18px) saturate(130%);
-}
-.brand-mark,
-.header-contact-dot,
-.button,
-.text-link,
-.nav-links a,
-.social-links a,
-.contact-email {
-  transition-duration: 320ms;
-  transition-timing-function: cubic-bezier(.22,1,.36,1);
-}
-.brand-mark { transition-property: border-color, color, transform, background; }
-.brand:hover .brand-mark { transform: rotate(-7deg) scale(1.05); border-color: var(--accent); background: rgba(185,200,172,.06); }
-.nav-links a { position: relative; }
-.nav-links a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 100%;
-  bottom: 8px;
-  height: 1px;
-  background: var(--accent);
-  transition: right 320ms cubic-bezier(.22,1,.36,1);
-}
-.nav-links a:hover::after { right: 0; }
-.header-contact-dot { box-shadow: 0 0 0 0 rgba(185,200,172,.18); }
-.header-contact:hover .header-contact-dot { box-shadow: 0 0 0 7px rgba(185,200,172,.06); }
-
-/* Project cards gain depth from the work itself, not decorative chrome. */
-.project-card .project-media {
-  transform: translateZ(0);
-  transition: transform 700ms cubic-bezier(.22,1,.36,1), border-color 500ms cubic-bezier(.22,1,.36,1), box-shadow 700ms cubic-bezier(.22,1,.36,1);
-}
-.project-card:hover .project-media {
-  transform: translateY(-4px) scale(1.008);
-  border-color: var(--border-strong);
-  box-shadow: 0 22px 70px rgba(0,0,0,.22);
-}
-.project-card-title,
-.creative-card h3,
-.note-content h3,
-.activity-item h3 {
-  transition: color 320ms cubic-bezier(.22,1,.36,1);
-}
-.project-card:hover .project-card-title { color: var(--accent); }
-
-.creative-card { overflow: hidden; }
-.creative-card .creative-image {
-  transition: transform 700ms cubic-bezier(.22,1,.36,1), border-color 500ms cubic-bezier(.22,1,.36,1), filter 500ms ease;
-}
-.creative-card:hover .creative-image {
-  transform: scale(1.018);
-  border-color: var(--border-strong);
-  filter: brightness(1.05);
-}
-.note-row { padding-inline: 0; transition: background 320ms cubic-bezier(.22,1,.36,1), padding-inline 320ms cubic-bezier(.22,1,.36,1); }
-.note-row:hover { padding-inline: 14px; }
-.activity-item { transition: padding-inline 320ms cubic-bezier(.22,1,.36,1), background 320ms ease; }
-.activity-item:hover { padding-inline: 12px; background: rgba(255,255,255,.012); }
-
-/* Native details can animate in modern browsers while remaining functional everywhere. */
-@supports (interpolate-size: allow-keywords) {
-  :root { interpolate-size: allow-keywords; }
-  .technical-details details::details-content {
-    block-size: 0;
-    opacity: 0;
-    overflow: hidden;
-    transition: block-size 420ms cubic-bezier(.22,1,.36,1), opacity 300ms ease, content-visibility 420ms allow-discrete;
-  }
+/* Native details remain functional without support for intrinsic-size transitions. */
+.technical-details summary::after { content: "+" !important; transition: transform var(--duration-interaction) var(--ease-out); }
+.technical-details details[open] summary::after { transform: rotate(45deg); }
+.technical-details summary { min-height: 64px; transition: color var(--duration-fast) ease; }
+.technical-details summary:is(:hover,:focus-visible) { color: var(--accent); }
+@supports (interpolate-size: allow-keywords) and (transition-behavior: allow-discrete) {
+  .technical-details details::details-content { interpolate-size: allow-keywords; block-size: 0; overflow: clip; opacity: 0; transition: block-size 400ms var(--ease-out), opacity 250ms ease, content-visibility 400ms allow-discrete; }
   .technical-details details[open]::details-content { block-size: auto; opacity: 1; }
 }
-.technical-details summary::after { transition: transform 320ms cubic-bezier(.22,1,.36,1), color 320ms ease; }
-.technical-details details[open] summary::after { transform: rotate(180deg); }
-
-/* Slightly more refined system typography on every platform. */
-body { font-family: Inter, "SF Pro Text", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
-@media print { body { font-family: Arial, Helvetica, sans-serif; } }
+@media (max-width: 767px) {
+  .header-inner { min-height: 108px; }
+  .about-copy h2 { max-width: 19ch; }
+  .activity-section { padding-block: 60px; }
+  .project-card-topline .eyebrow { font-size: 8px; letter-spacing: .07em; }
+}
+/* Last in the cascade: preferences and print always settle enhanced states. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  *::details-content { animation: none !important; transition: none !important; }
+  [data-reveal], .route-frame { opacity: 1 !important; transform: none !important; }
+  .button, .project-card .project-media, .arrow-icon { transform: none !important; }
+}
+@media print {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  *::details-content { animation: none !important; transition: none !important; }
+  [data-reveal], .route-frame { opacity: 1 !important; transform: none !important; }
+  body { font-family: Arial, Helvetica, sans-serif; }
+}

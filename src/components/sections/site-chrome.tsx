@@ -30,8 +30,10 @@ export function SiteFooter() {
 
 export function Contact() {
   return <section className="contact-section" id="contact" aria-labelledby="contact-heading"><Container>
+    <div data-reveal>
     <p className="eyebrow">Start a conversation</p><h2 id="contact-heading" className="contact-title">Have an interesting problem?<br /><span>Let’s talk.</span></h2>
     <a className="contact-email" href={`mailto:${identity.email}`}>{identity.email}<Arrow diagonal /></a>
     <div className="contact-socials"><SocialLinks resume /></div>
+    </div>
   </Container></section>;
 }

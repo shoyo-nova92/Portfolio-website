@@ -1,6 +1,6 @@
 # Content strategy
 
-Lead with work that can be understood quickly and explored deeply. The homepage introduces Shourya, places Nova and Neurofly first, then offers a smaller creative gallery, concise engineering notes, an undated selected-practice preview, about and direct email contact. No Education section.
+Lead with work that can be understood quickly and explored deeply. The homepage introduces Shourya, places Nova and Neurofly first, then offers a smaller creative gallery, concise engineering notes, one compact primary-attested technical workshop activity, about and direct email contact. No Education section. The activity section adds the workshop rather than repeating the project, creative-work or writing summaries.
 
 ## Voice
 
@@ -23,6 +23,8 @@ Two short notes frame actual project design questions: validation versus verific
 ## Resume
 
 Use the shared content objects. Order: identity/contact, concise summary, selected projects, independent creative work, verified leadership if supplied, verified achievements if supplied, grouped capabilities, verified certifications if supplied. Hide empty sections instead of displaying unavailable claims. Print uses selectable text, normal links and a linear reading order. Do not stretch an evidence-limited resume with speculative filler.
+
+Contribution copy lives in `resumeProjectBullets`, separate from the explanatory case-study narrative. Nova leads with architecture, integration, validation/authorization, execution guards and actual CMake test-target definitions. No regression totals or pass results are published because no inspectable test log supports the earlier working-tree numbers. Neurofly uses present-tense design/exploration verbs, with ESP32 hardware a future direction. `resumeActivities` contains one short workshop entry primary-attested by the original user brief; no certification, affiliation or applied-to-Nova outcome is implied.
 
 ## Maintenance
 

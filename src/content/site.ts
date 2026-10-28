@@ -94,9 +94,7 @@ export const creativeWork: CreativeWork[] = [
 ];
 
 export const activities: { title: string; description: string; kind: string }[] = [
-  { title: "OpenAI / Codex hands-on workshop", description: "Worked with structured prompting, AGENTS.md, parallel builder/reviewer agents, browser QA, and deployment workflows; carried the agent-division pattern back into Nova development.", kind: "Oct 2026 · Technical event" },
-  { title: "Independent design & editing", description: "Creative work spanning visual design, promotional compositions, and video editing, with selected pieces shown above.", kind: "Freelance" },
-  { title: "Writing through the engineering", description: "Publishing concise technical explorations around agent verification and biologically inspired navigation as the projects evolve.", kind: "Technical notes" },
+  { title: "Hands-on Codex workshop", description: "Attended a hands-on workshop on structured prompting, agent workflows, project guidance, web development, and testing.", kind: "Technical workshop · Oct 2026" },
 ];
 
 export const freelance = {
@@ -108,26 +106,19 @@ export const freelance = {
 
 export const resumeProjectBullets: Record<Project["slug"], string[]> = {
   nova: [
-    "Architected a staged request pipeline - normalization, routing, planning, validation, execution, and verification - so model proposals remain inspectable before they become computer actions.",
-    "Built across a C++ runtime and Python voice/automation components, integrating OpenWakeWord, faster-whisper, filesystem primitives, and Playwright-backed browser operations.",
-    "Added content-aware file creation, one bounded repair attempt, and postcondition readback verification; reported regression results passed 27/27 Branch 3, 15/15 mapper, and 15/15 decomposition tests after the fix.",
+    "Architected a C++20 runtime and Python voice pipeline, integrating OpenWakeWord and faster-whisper with request normalization, routing, and multi-step planning.",
+    "Implemented plan validation and filesystem authorization to reject unresolved operations or context references before execution and return structured failures.",
+    "Integrated Playwright browser operations and observation-based execution guards that stop repeated failures and browser actions producing no observable state change.",
+    "Defined CMake test targets for decomposition, primitive mapping, filesystem policies, and runtime integration; kept execution results and context available for debugging.",
   ],
   neurofly: [
-    "Developing an interactive sensing-to-movement simulation inspired by Drosophila olfaction, mapping odor concentration fields through receptor/neural responses into navigation behaviour.",
-    "Designing the arena for controllable odor sources, bilateral sensing, inspectable neural activity, and competing stimuli so behaviour can be studied rather than pre-scripted.",
-    "Defined a future hardware path around an ESP32-based robot intended to mirror the virtual neural-control loop; physical integration is explicitly still in progress.",
+    "Designing an experimental Drosophila-inspired olfactory simulation, mapping odor concentration fields through receptor activation and neural response toward autonomous movement.",
+    "Exploring bilateral sensing and competing odor sources in a virtual arena; treating an ESP32 robot as a future embodiment direction, not completed integration.",
   ],
 };
 
-export const resumeActivities = [
-  {
-    title: "OpenAI / Codex hands-on workshop",
-    meta: "Technical event · Oct 2026",
-    bullets: [
-      "Practised structured prompting, AGENTS.md project rulebooks, parallel specialist agents, independent QA/review, and full-stack deployment concepts.",
-      "Applied the multi-agent builder/checker workflow to ongoing Nova development and to the construction of this portfolio.",
-    ],
-  },
+export const resumeActivities: { title: string; meta: string; bullets: string[] }[] = [
+  { title: "Hands-on Codex workshop", meta: "Technical workshop · Oct 2026", bullets: ["Attended a hands-on workshop on structured prompting, agent workflows, project guidance, web development, and testing."] },
 ];
 
 // Independent verification unavailable. Keep empty until exact source evidence is added.

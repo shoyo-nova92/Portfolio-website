@@ -27,6 +27,10 @@ npm start
 
 Browser checks: `npm run test:browser`. First install a supported test browser with `npx playwright install chromium` if Chromium is unavailable. Production build and start should be run sequentially.
 
+Motion/accessibility regression checks: `npm run test:motion`. These verify finite once-only diagram effects, reduced-motion initial/live changes and readable mobile pages without JavaScript. Both browser scripts accept `TEST_BASE_URL`.
+
+The refined UI uses one repository-local Manrope variable font and a small route/IntersectionObserver controller. Reveals never hide server-rendered content, diagrams retain semantic static explanations, and motion is disabled for reduced-motion preference and print. Font license: `src/styles/fonts/OFL.txt`. No animation library or runtime font service is required.
+
 The current Next.js ESLint configuration includes plugins whose peer ranges stop at ESLint 9; this project uses ESLint 10 and its full lint run passes. npm may print peer-override warnings during installation. Keep the lockfile and rerun lint when updating these packages.
 
 ## Content and evidence

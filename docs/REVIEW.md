@@ -36,4 +36,8 @@ Location: `package.json`, `package-lock.json`.
 - Ran `npm ci --ignore-scripts --dry-run`: exit 0 with the peer warnings recorded above. This is a dependency-resolution dry run, not a clean installation test.
 - Did not independently run a production build, generate a PDF, assign Lighthouse scores, or repeat the QA agent's browser matrix. Their outcomes must be recorded by their owners.
 
-No high-severity code/content issue was identified in this review. The P2 metadata finding should be repaired and rechecked before completion.
+No high-severity code/content issue was identified in this original review. The metadata finding's repair is recorded above.
+
+## 2026-10-29 refinement follow-up
+
+The current motion/typography/content refinement review is recorded in `docs/IMPROVEMENT_REVIEW.md`. It identified and independently rechecked the repaired project-media accessible-name regression. The lead owns replacement of the stale pre-existing V2 summary. No unresolved high- or medium-severity implementation finding remains in the follow-up review scope.

@@ -48,3 +48,31 @@ No unresolved visual or interaction defect was found in the tested scope. The in
 - The lead's final local production suite passed 28/28 after fixes, including metadata and interaction assertions. The lead reports Lighthouse 13.6 local mobile lab scores of Performance 100, Accessibility 100, Best Practices 100 and SEO 100, with LCP 0.9s (`test-results/lighthouse.json`). These are local laboratory results, not deployed or real-user measurements; this QA agent did not independently run Lighthouse.
 - Public external page reachability can be affected by service login/anti-bot restrictions; this QA verifies correct supplied destinations and safe link behavior rather than account ownership or external service availability.
 - Final production-build and metadata repair verification belong to the lead and are recorded separately. Main interaction QA used the live local development server after the shared metadata fix; the final gallery recheck used the current local server after the gallery fix.
+
+---
+
+# Refinement QA — 2026-10-29
+
+This section covers the current improvement request in `docs/IMPROVEMENT_BRIEF.md` and supersedes earlier visual observations where the implementation changed. Implementation remained read-only for this reviewer. Current testing used the local development server at `http://localhost:3000`; final production matrix, motion instrumentation, build and regenerated PDF verification belong to the lead/specialists.
+
+## Independent checks performed
+
+- Ran ignored `test-results/refine-qa.mjs`: 24 route/viewport combinations across home, Nova, Neurofly, Explorations index, validation note and résumé at 1440, 1280, 768 and 390px. All returned HTTP200, had one h1, no horizontal overflow and no broken loaded images. Computed body font uses the loaded Manrope family. The script recorded 31 checks total including the interactions below, with zero browser runtime errors.
+- Visually inspected captured 1440px homepage and Nova page; 390px homepage, Nova, Explorations and résumé; 768px full homepage; keyboard-focused project-card screenshot; and résumé print-media screenshot. Evidence: `test-results/refine-qa-*.png`, `refine-qa-tablet.png`, and `refine-qa-results.json`.
+- Typography remains legible and wraps without clipping. Desktop work panels have distinct architectural illustrations. Cards stack on mobile; technical architecture becomes an ordered vertical flow. Tablet keeps both work panels within the grid. Full landscape creative artwork is visible without crop. The compact workshop activity adds information instead of repeating Nova and Neurofly. About copy is shorter and contact email remains within the viewport.
+- Keyboard: first Tab reaches Skip to content and Enter moves focus to `main`. Focusing Nova's conceptual media link gives a visible outline, stronger border and matching card response; activating it opens the Nova case study. Native technical summary Enter toggles initially open → closed → open, preserving keyboard operation through the transition.
+- Nested project navigation: the next-project link moves from Nova to Neurofly and displays the correct h1. This verifies navigation functionality; the lead's motion test owns the instrumented per-path animation assertions.
+- Live reduced-motion change while the Neurofly illustration is in view leaves no running animation in `main` after settling. The default static diagrams, text and labels remain understandable.
+- Résumé: selecting Creative hides Nova on screen; print emulation restores Nova and Neurofly and hides the toolbar. The inspected print-media screenshot is clean grayscale text, but it is not a substitute for checking final PDF page count or PDF rendering; the PDF specialist owns those checks.
+- JavaScript-disabled 390px Nova page: h1 and all seven semantic architecture stages remain present, and reveal targets have full opacity. No motion-dependent hiding is required to read the page.
+- Sampled navigation links at tablet width have 44px rendered height. Media fallback remains a labeled conceptual architecture preview; no missing file becomes a broken video element.
+
+## Findings
+
+No unresolved high- or medium-severity visual or interaction defect was found in this independent tested scope. No implementation repair was made by QA. The keyboard focus treatment, native details behavior, responsive layouts, readable static diagram state, reduced-motion switch and no-JavaScript content all passed.
+
+## Limits
+
+- This review did not independently rerun axe across all seven routes, the full production browser/motion suites, Lighthouse, or the final build. Their latest results must be recorded by the lead rather than inferred from this report.
+- Real Nova/Neurofly recordings, synchronized captions and portrait were not supplied. Absent-file UI is verified; real playback/caption alignment and actual portrait crop remain dependent on those future assets.
+- No Safari/Firefox, physical touch device or screen-reader session was performed. Animation timing was checked through targeted behavior and static visual states; no claim of formal WCAG certification is made.

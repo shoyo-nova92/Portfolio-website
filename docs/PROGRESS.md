@@ -2,16 +2,34 @@
 
 Updated: 2026-10-29 (Asia/Calcutta).
 
-## Status: IN PROGRESS — refinement request
-Original portfolio is complete. New authorized scope: docs/IMPROVEMENT_BRIEF.md (pasted request on Oct29): improve restrained motion, project storytelling, homepage flow/activity, typography/spacing, and engineering-focused resume; regenerate PDF and retest. Preserve the existing app; do not scaffold again.
+## Status: COMPLETE — refinement request
+Original portfolio is complete. New authorized scope: docs/IMPROVEMENT_BRIEF.md (pasted request on Oct29): improve restrained motion, project storytelling, homepage flow/activity, typography/spacing, and engineering-focused resume; regenerate PDF and retest. Preserve the existing app; do not scaffold again. A request saying only `continue` must resume from this checkpoint.
 
-### Current refinement checkpoint
-- Inspected current files and saved new request in docs/IMPROVEMENT_BRIEF.md.
-- Existing disk contains partial V2 edits not reflected by previous checkpoint: route template, appended CSS motion, workshop/resume bullets, docs/IMPROVEMENTS_V2.md. Preserve supported work, audit unverified additions.
-- Wave1 specialist reviews running: motion_review (design/motion only), resume_review (source-backed content). Workers share ownership contracts in AGENTS.md.
-- Untraceable resume metrics and workshop supporting-material claims require verification/removal; never publish unsupported test results.
-- Next: reconcile reviews; Wave2 frontend/motion/resume refinements; Wave3 QA and code review; fix findings, full checks, PDF generation/inspection. No servers started in this refinement yet.
-- Prior verification below applies to earlier completed version; rerun for this change.
+### Final refinement results (supersedes earlier records below)
+- All requested refinements are implemented in the existing app. No unfinished implementation remains.
+- Final lint, TypeScript, three tests and production build PASS after all source changes and final PDF.
+- Final production browser suite PASS: 28/28 route/viewport combinations at 1440/1280/768/390; zero axe failures/runtime errors, no overflow or broken images.
+- Final production motion suite PASS: five checks covering finite once-only sequences, no scroll-back replay, initial/live reduced-motion changes and readable no-JavaScript mobile pages.
+- Independent QA completed 31 checks including 24 route/viewport cases and visual/interaction inspection. Code review complete. No unresolved high/medium finding.
+- Fixed new media-link accessible-name regression; replaced stale V2 documentation with actual verified change report. Unsupported regression totals and claimed workshop supporting materials/application outcomes removed.
+- Final PDF: one A4 page, 2,618 selectable-text characters, six actual external/email links; no localhost/127.0.0.1/3117 annotations. Readable 9.5pt project text, visually inspected without clipping/overlap. See docs/RESUME_REFINEMENT.md.
+- Fresh local mobile Lighthouse 13.6: Performance 100, Accessibility 100, Best Practices 100, SEO 100; LCP 1.0s, CLS 0. Raw current report: test-results/lighthouse-refinement.json. These are local lab results.
+- Current change/file list: docs/IMPROVEMENTS_V2.md. Current outcomes: docs/VALIDATION.md, docs/QA_REPORT.md (refinement section), docs/IMPROVEMENT_REVIEW.md. Implementation decisions: design/content reviews and FRONTEND_REFINEMENTS.md.
+- Self-hosted Manrope font/license, finite route/IO motion, named project signals, improved interactions/type/spacing, compact non-repetitive activity and source-backed contribution resume are complete. No animation library or runtime dependency added.
+- Optional videos/captions/portrait are still awaited; deliberate missing-media states work. The next task is adding those assets or the user's next requested refinement. No deployment performed.
+
+### Earlier in-progress refinement checkpoint (historical, now complete)
+- Wave1 reviews and Wave2 implementation complete. See IMPROVEMENT_DESIGN_REVIEW.md, IMPROVEMENT_CONTENT_REVIEW.md, FRONTEND_REFINEMENTS.md.
+- Manrope variable Latin font self-hosted in src/styles/fonts/ (24KB, OFL license), no new runtime dependencies.
+- Frontend typography/spacing/compact activity, hover/focus, native details transitions and once reveals integrated. MotionController handles route/IO/preference/focus/print; finite Nova and Neurofly signal sequences, no infinite animation.
+- Unsupported regression metrics and unsupported workshop-material/application claims removed. Four inspected-source Nova contributions, two experimental Neurofly bullets, one workshop primary-attested in original brief.
+- Main lint/typecheck and all3 tests pass; initial production build passed. Motion test script added, five checks pass on dev (finite once-only sequences, reduced-motion initial/live change, no-JS mobile readability).
+- Initial production browser matrix passed24 and found4 homepage accessibility failures (new media-link aria-label mismatch). Lead removed redundant aria-label; final rebuild and browser retest required.
+- QA and reviewer specialists active. QA appends to docs/QA_REPORT.md. Reviewer writes improvement review.
+- Resume specialist regenerating tightened one-page PDF; first version spilled to2 pages. Print spacing adjusted, retained9.5pt body. Print-only plain project titles prevent temporary3117 links. Generating against dev RESUME_URL=http://localhost:3000/resume to avoid builds while other QA runs.
+- Servers: dev3000 session59288; production3001 session50562. Main initial browser session63083 completed exit1 due fixed source mismatch. No main build running; wait PDF specialist then final build/restartproduction/test.
+- Next exact steps: finish PDF/render/annotation verification; update stale docs/IMPROVEMENTS_V2.md; await QA/review, fix findings; rerun lint/typecheck/tests/build, production browser+motion; measure performance if feasible; final docs/checkpoint and server cleanup.
+- Prior verification below applies to earlier completed version, not this current refinement.
 
 ## What exists
 - Next.js 16.4.3, React 19.3.1, TypeScript, Tailwind; npm lockfile; current Node24 tested.

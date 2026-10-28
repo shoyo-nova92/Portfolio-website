@@ -1,34 +1,42 @@
-# Portfolio V2 improvements
+# Portfolio refinement — final implementation
 
-Implemented after reviewing the finished V1 source, browser screenshots, and resume.
+Updated 2026-10-29. This pass improves the existing site; its stack, routes, content model and reserved media paths are preserved.
 
 ## Motion and interaction
-- Added a restrained route-entry transition so internal navigation does not feel like a hard cut.
-- Added staged hero entrance choreography.
-- Added progressive scroll-reveal motion for section headings, project cards, creative work, notes, activities, case-study sections, and contact.
-- Added deeper project-card hover behaviour and creative-work image motion.
-- Added subtle living motion to the Nova and Neurofly concept diagrams and sequential architecture-stage reveals.
-- Added progressive animation for technical `details` disclosures on browsers that support it.
-- Preserved `prefers-reduced-motion` behaviour.
-- Added a translucent/backdrop-blurred persistent header and quieter navigation underline motion.
+- One lightweight MotionController uses IntersectionObserver and pathname changes for finite route entrances and once-only section reveals. Server HTML is fully visible without JavaScript.
+- Nova shows ingress, planning, validation, execution and observation highlights in order. Neurofly shows an odor-field breath, receptor activation, neural/decision signals and a small movement-intent cue. These are explicitly conceptual illustrations, not live simulations or recorded results.
+- Architecture stage emphasis follows the semantic ordered pipeline. All sequences finish in under 3 seconds; no infinite idle motion.
+- Project media responds to hover/focus with a small lift, scale and border change. Missing-video previews link to case studies; actual video controls are never wrapped in a link or scaled.
+- Navigation, buttons, CTAs, native disclosures and resume focus filters use consistent short transitions. Keyboard focus receives the same hierarchy cues as hover.
+- Reduced-motion initial/live changes, focus and print settle enhanced states. Native details remain functional when intrinsic-size transitions are unsupported.
 
-## Content hierarchy
-- Replaced the repetitive “A path through making” list with a more useful Selected Activity section.
-- Added the Oct 2026 OpenAI/Codex hands-on workshop as technical activity using Shourya's primary attestation plus the supplied workshop materials.
-- Strengthened the freelance description around the real selected creative pieces.
+## Hierarchy and typography
+- Added a self-hosted 24KB Manrope variable Latin WOFF2 with OFL license; no runtime font service or new package dependency. Print uses Arial.
+- Refined heading tracking, supporting text measures, section spacing and mobile touch targets.
+- Removed repeated Nova/Neurofly activity summaries and repeated About explanations. One compact activity introduces the hands-on Codex workshop attested in the original user brief.
+- Creative artwork remains fully contained, with accurate responsive image sizing; no artwork text is cropped for hover effects.
 
-## Resume
-- Repositioned the resume around AI systems and agentic software rather than a generic project summary.
-- Rewrote Nova bullets around architecture, implementation, and validation outcomes.
-- Added the reported Nova regression-test results after the populated-file repair.
-- Rewrote Neurofly bullets to distinguish implemented/developing simulation work from future hardware direction.
-- Expanded independent design/editing into recruiter-readable experience bullets.
-- Added technical activity from the Codex workshop.
-- Kept the document one page, ATS-friendly, selectable, and linked.
+## Resume and evidence
+- Four Nova contribution bullets foreground C++20/Python input architecture, structural validation/filesystem authorization, Playwright/observation guards, and defined CMake test targets.
+- Two Neurofly bullets describe experimental olfactory control design; ESP32 embodiment remains future work.
+- Removed unsupported 27/27 and 15/15 regression totals, one-repair/readback assertions, supposed supplied workshop materials, and claimed application outcomes. Target existence is not presented as a passed Nova test.
+- Removed repeated project explanations and redundant freelance bullets. Capability groups remain source-backed.
+- Regenerated one-page A4 PDF at 9.5pt project text, selectable and grayscale-friendly. Print-only plain project titles prevent temporary localhost/3117 links. Six real email/external annotations remain.
 
-## Highest-value next inputs
-1. Add the real Nova demo video.
-2. Add the real Neurofly demo video.
-3. Add one strong professional portrait.
-4. Verify exact club/leadership titles and the Zenith competition result before publishing them.
-5. Add exact credential evidence before publishing certifications.
+## Changed implementation files
+- src/app/layout.tsx; src/app/template.tsx; src/app/page.tsx; src/app/work/[slug]/page.tsx
+- src/components/projects/project-card.tsx
+- src/components/sections/site-chrome.tsx; src/components/sections/exploration-list.tsx
+- src/components/motion/motion-controller.tsx; project-media.tsx; project-media.css; architecture-flow.tsx
+- src/styles/globals.css; src/styles/fonts/manrope-latin-wght-normal.woff2; src/styles/fonts/OFL.txt
+- src/content/site.ts
+- src/components/resume/resume-view.tsx; resume.css; public/Shourya_Bhardwaj_Resume.pdf
+- scripts/motion-check.mjs; package.json
+- Source, strategy, design, media, review, QA, PDF, validation, README and progress documentation.
+
+## Validation
+Final command/browser outcomes are recorded in docs/VALIDATION.md and docs/PROGRESS.md. Independent visual QA is in docs/QA_REPORT.md; code review in docs/IMPROVEMENT_REVIEW.md; PDF verification in docs/RESUME_REFINEMENT.md. Do not confuse earlier-version scores with this pass's fresh measurements.
+
+## Remaining optional inputs
+Nova and Neurofly demo recordings, captions/posters/transcripts, and the professional portrait. Existing intentional fallbacks remain available. Leadership, awards and credentials stay omitted until exact evidence is supplied.
+

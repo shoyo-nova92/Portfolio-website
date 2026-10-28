@@ -27,9 +27,9 @@ export function ResumeView() {
 
     <article className="resume-document" aria-labelledby="resume-name">
       <header className="resume-heading">
-        <p className="resume-label">AI systems · agentic software · experimental engineering</p>
+        <p className="resume-label">Engineering through implementation</p>
         <h1 id="resume-name">{identity.name}</h1>
-        <p className="resume-headline">AI Systems & Agentic Software Builder</p>
+        <p className="resume-headline">AI systems, automation & experimental engineering</p>
         <ul className="resume-contacts" aria-label="Contact links">
           <li><a href={`mailto:${identity.email}`}>{identity.email}</a></li>
           <li><a href={identity.github} target="_blank" rel="noopener noreferrer"><span className="resume-screen-label">GitHub ↗</span><span className="resume-print-label">github.com/shoyo-nova92</span></a></li>
@@ -45,12 +45,12 @@ export function ResumeView() {
         <p className="sr-only" aria-live="polite">{filters.find(filter => filter.value === focus)?.label} selected. Print and PDF include the complete résumé.</p>
       </div>
 
+      <div className="resume-body" key={focus}>
       <section className="resume-section" aria-labelledby="resume-projects" data-screen-hidden={focus === "creative" || undefined}>
         <h2 id="resume-projects">Selected Engineering Projects</h2>
         <div className="resume-section-content">{projects.map(project => <section className="resume-project" key={project.slug} data-screen-hidden={!show(project.slug) || undefined} aria-labelledby={`resume-${project.slug}`}>
-          <div className="resume-entry-heading"><h3 id={`resume-${project.slug}`}><Link href={`/work/${project.slug}`}>{project.title}</Link></h3><span>{project.status}</span></div>
+          <div className="resume-entry-heading"><h3 id={`resume-${project.slug}`}><Link className="resume-screen-project-title" href={`/work/${project.slug}`}>{project.title}</Link><span className="resume-print-project-title">{project.title}</span></h3><span>{project.status}</span></div>
           <p className="resume-entry-meta">{project.role} · {project.category}</p>
-          <p className="resume-project-lead">{project.summary}</p>
           <ul className="resume-project-points">{resumeProjectBullets[project.slug].map(point => <li key={point}>{point}</li>)}</ul>
           {project.repo && <a className="resume-source-link" href={project.repo} target="_blank" rel="noopener noreferrer">{project.repo.replace("https://", "")}</a>}
           <Link href={`/work/${project.slug}`} className="resume-case-study">Read case study <span aria-hidden="true">↗</span></Link>
@@ -59,13 +59,13 @@ export function ResumeView() {
 
       <section className="resume-section" aria-labelledby="resume-creative" data-screen-hidden={!show("creative") || undefined}>
         <h2 id="resume-creative">Freelance & Creative Experience</h2>
-        <div className="resume-section-content"><h3>{freelance.title}</h3><p>{freelance.description}</p><ul className="resume-project-points"><li>Produced polished promotional compositions and visual communication across multiple product concepts.</li><li>Worked across visual design and video editing, balancing clarity, hierarchy, and presentation for digital audiences.</li></ul><a className="resume-source-link" href={freelance.url} target="_blank" rel="noopener noreferrer">View selected creative work ↗</a></div>
+        <div className="resume-section-content"><h3>{freelance.title}</h3><p>{freelance.description}</p><a className="resume-source-link" href={freelance.url} target="_blank" rel="noopener noreferrer">View selected creative work ↗</a></div>
       </section>
 
-      <section className="resume-section resume-activity-section" aria-labelledby="resume-activity">
+      {resumeActivities.length > 0 && <section className="resume-section resume-activity-section" aria-labelledby="resume-activity">
         <h2 id="resume-activity">Technical Activity</h2>
         <div className="resume-section-content">{resumeActivities.map(item => <div className="resume-activity" key={item.title}><div className="resume-entry-heading"><h3>{item.title}</h3><span>{item.meta}</span></div><ul className="resume-project-points">{item.bullets.map(bullet => <li key={bullet}>{bullet}</li>)}</ul></div>)}</div>
-      </section>
+      </section>}
 
       {leadership.length > 0 && <section className="resume-section" aria-labelledby="resume-leadership"><h2 id="resume-leadership">Leadership & Activities</h2><div className="resume-section-content">{leadership.map(item => <div key={item.title}><h3>{item.title}</h3><p>{item.description}</p></div>)}</div></section>}
       {achievements.length > 0 && <section className="resume-section" aria-labelledby="resume-achievements"><h2 id="resume-achievements">Selected Achievements</h2><div className="resume-section-content">{achievements.map(item => <div key={item.title}><h3>{item.title}</h3><p>{item.description}</p></div>)}</div></section>}
@@ -79,6 +79,7 @@ export function ResumeView() {
       </section>
 
       {certifications.length > 0 && <section className="resume-section" aria-labelledby="resume-certifications"><h2 id="resume-certifications">Relevant Certifications</h2><div className="resume-section-content">{certifications.map(item => <div key={item.title}><h3>{item.url ? <a href={item.url} target="_blank" rel="noopener noreferrer">{item.title}</a> : item.title}</h3><p>{item.issuer} · {item.date}</p></div>)}</div></section>}
+      </div>
     </article>
     <p className="resume-print-note">Prefer a document? Print or download the complete résumé above.</p>
   </div>;

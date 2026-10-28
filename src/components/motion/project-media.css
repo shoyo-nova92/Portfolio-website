@@ -45,38 +45,73 @@
   .system-flow li { flex-direction: row; justify-content: flex-start; gap: 18px; padding-inline: 20px; text-align: left; }
   .media-caption { font-size: 7px; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .project-media-figure *, .system-flow * { animation: none !important; transition: none !important; }
+/* Static geometry is complete; these highlights only explain ordering. */
+.diagram-signal { opacity: 0; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.signal-packet { opacity: 0; }
+.neurofly-odor-field, .neurofly-movement-intent { transform-box: fill-box; transform-origin: center; }
+.system-flow li { transition: border-color 300ms ease, background 300ms ease; }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Nova: normalized ingress, planning, validation, execution, observation. */
+  [data-sequence="nova"][data-motion-state="entered"] .nova-input { animation: node-emphasis 500ms ease; }
+  [data-sequence="nova"][data-motion-state="entered"] .nova-ingress-signal { animation: signal-trace 650ms 100ms ease-out; }
+  [data-sequence="nova"][data-motion-state="entered"] .nova-packet-input { animation: packet-progress 650ms 100ms linear; }
+  [data-sequence="nova"][data-motion-state="entered"] .nova-core { animation: node-emphasis 700ms 600ms ease; }
+  [data-sequence="nova"][data-motion-state="entered"] .nova-validation { animation: node-emphasis 550ms 1100ms ease; }
+  [data-sequence="nova"][data-motion-state="entered"] .nova-validation-signal { animation: signal-trace 500ms 1200ms ease-out; }
+  [data-sequence="nova"][data-motion-state="entered"] .nova-execution-signal { animation: signal-trace 700ms 1650ms ease-out; }
+  [data-sequence="nova"][data-motion-state="entered"] .nova-packet-output { animation: packet-progress 700ms 1650ms linear; }
+  [data-sequence="nova"][data-motion-state="entered"] .nova-verification { animation: node-emphasis 600ms 2250ms ease; }
+
+  /* Neurofly: one environmental breath, receptors, neural signal, movement intent. */
+  [data-sequence="neurofly"][data-motion-state="entered"] .neurofly-odor-field { animation: odor-arrival 1600ms ease-in-out; }
+  [data-sequence="neurofly"][data-motion-state="entered"] .neurofly-receptor-signal { animation: signal-trace 700ms 400ms ease-out; }
+  [data-sequence="neurofly"][data-motion-state="entered"] .neurofly-receptors { animation: node-emphasis 600ms 850ms ease; }
+  [data-sequence="neurofly"][data-motion-state="entered"] .neurofly-neural-signal { animation: signal-trace 700ms 1050ms ease-out; }
+  [data-sequence="neurofly"][data-motion-state="entered"] .neurofly-decision-signal { animation: signal-trace 800ms 1650ms ease-out; }
+  [data-sequence="neurofly"][data-motion-state="entered"] .neurofly-movement-intent { animation: movement-intent 900ms 2000ms ease-in-out; }
+
+  /* Every stage stays readable while a single emphasis travels through the list. */
+  .system-flow[data-motion-state="entered"] li {
+    animation: stage-emphasis 720ms ease;
+    animation-delay: calc(var(--stage-index, 0) * 230ms);
+  }
+  .system-flow[data-motion-state="entered"] li:not(:last-child)::after {
+    animation: connector-emphasis 500ms ease;
+    animation-delay: calc(var(--stage-index, 0) * 230ms + 230ms);
+  }
 }
 
-/* Concept diagrams are quiet living systems rather than static illustrations. */
-@media (prefers-reduced-motion: no-preference) {
-  .concept-scene .concept-illustration { animation: diagram-breathe 9s ease-in-out infinite alternate; }
-  .nova-scene .concept-status i,
-  .neurofly-scene .concept-status i { animation: status-pulse 2.6s ease-in-out infinite; }
-  .nova-scene .concept-illustration circle,
-  .neurofly-scene .concept-illustration > circle { transform-box: fill-box; transform-origin: center; animation: signal-pulse 4.8s ease-in-out infinite; }
-  .neurofly-scene .concept-illustration > ellipse { transform-box: fill-box; transform-origin: center; animation: odor-field 7s ease-in-out infinite alternate; }
-  .system-flow li {
-    transition: transform 420ms cubic-bezier(.22,1,.36,1), border-color 420ms ease, background 420ms ease, color 420ms ease;
-  }
-  .system-flow li:hover { transform: translateY(-3px); border-color: var(--accent); background: #171b16; color: var(--foreground); }
-  @supports (animation-timeline: view()) {
-    .system-flow li {
-      animation: flow-stage linear both;
-      animation-timeline: view();
-      animation-range: entry 4% cover 23%;
-    }
-    .system-flow li:nth-child(2) { animation-range: entry 7% cover 26%; }
-    .system-flow li:nth-child(3) { animation-range: entry 10% cover 29%; }
-    .system-flow li:nth-child(4) { animation-range: entry 13% cover 32%; }
-    .system-flow li:nth-child(5) { animation-range: entry 16% cover 35%; }
-    .system-flow li:nth-child(6) { animation-range: entry 19% cover 38%; }
-    .system-flow li:nth-child(7) { animation-range: entry 22% cover 41%; }
-  }
+@media (hover: hover) and (pointer: fine) {
+  .system-flow li:hover { border-color: var(--accent); background: #171b16; }
 }
-@keyframes diagram-breathe { from { transform: scale(1); opacity: .93; } to { transform: scale(1.012); opacity: 1; } }
-@keyframes status-pulse { 0%,100% { opacity: .55; box-shadow: 0 0 0 0 rgba(185,200,172,0); } 50% { opacity: 1; box-shadow: 0 0 0 6px rgba(185,200,172,.06); } }
-@keyframes signal-pulse { 0%,100% { opacity: .72; } 50% { opacity: 1; } }
-@keyframes odor-field { from { opacity: .72; transform: scale(.992); } to { opacity: 1; transform: scale(1.012); } }
-@keyframes flow-stage { from { opacity: .3; transform: translateY(13px); } to { opacity: 1; transform: translateY(0); } }
+
+@keyframes signal-trace {
+  0% { opacity: 0; stroke-dashoffset: 1; }
+  15% { opacity: .8; }
+  70% { opacity: .8; stroke-dashoffset: 0; }
+  100% { opacity: 0; stroke-dashoffset: 0; }
+}
+@keyframes packet-progress {
+  0% { opacity: 0; transform: translateX(0); }
+  10%, 85% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(125px); }
+}
+@keyframes node-emphasis { 0%,100% { opacity: 1; } 25% { opacity: .55; } 75% { opacity: 1; } }
+@keyframes odor-arrival { 0%,100% { transform: scale(1); } 50% { transform: scale(1.035); } }
+@keyframes movement-intent { 0%,100% { transform: translate(0,0); } 60% { transform: translate(-3px,-1px); } }
+@keyframes stage-emphasis {
+  0%,100% { border-color: var(--border-strong); background: var(--surface); }
+  35%,60% { border-color: var(--accent); background: #20271c; }
+}
+@keyframes connector-emphasis { 0%,100% { opacity: .65; } 50% { opacity: 1; } }
+
+/* These final overrides also cover a preference change during a running sequence. */
+@media (prefers-reduced-motion: reduce), print {
+  .project-media-figure *, .system-flow *, .system-flow *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .neurofly-odor-field, .neurofly-movement-intent, .signal-packet { transform: none !important; }
+  .diagram-signal, .signal-packet { opacity: 0 !important; }
+}
